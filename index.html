@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="monetag" content="2e3a018ad38b333f18e9284a222f8933">
-<script>(function(s){s.dataset.zone='11117590',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<title>AI Prompt Gallery PRO</title>
+<title>PiqAi</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -143,7 +141,6 @@ body {
   transform: translateX(-1px);
 }
 
-/* Telegram Drop/Bounce Animation */
 @keyframes floatBounce {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-7px); }
@@ -180,29 +177,40 @@ body {
   color: #fff;
 }
 
-/* Grid & Cards - UPDATED TO RESPONSIVE GRID LEFT TO RIGHT */
+/* Grid & Cards - UPDATED TO MASONRY 3D ASPECT RATIO */
 .grid {
   position: relative;
   z-index: 10;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px;
-  padding: 6px;
+  column-count: 2;
+  column-gap: 8px;
+  padding: 8px;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .card {
+  break-inside: avoid;
+  margin-bottom: 8px;
   border-radius: 14px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
   background: var(--glass);
   border: 1px solid var(--glass-border);
-  transition: transform 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: cardIn 0.4s ease both;
+  
+  /* 3D Properties */
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
-.card:active { transform: scale(0.97); }
+
+.card:hover { 
+  transform: translateY(-4px) scale(1.02); 
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+  border-color: rgba(168,85,247,0.4);
+}
+.card:active { transform: translateY(0) scale(0.98); }
 
 @keyframes cardIn {
   from { opacity:0; transform: scale(0.93) translateY(10px); }
@@ -211,8 +219,8 @@ body {
 
 .card img {
   width: 100%;
+  height: auto; /* Ensures image maintains original aspect ratio */
   display: block;
-  object-fit: cover;
 }
 
 /* Number Tag */
@@ -272,28 +280,50 @@ body {
 /* Modal */
 .overlay { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); align-items: flex-end; justify-content: center; }
 .overlay.show { display: flex; animation: overlayIn 0.25s ease; }
-.modal { width: 100%; max-width: 600px; background: rgba(18,18,30,0.95); border-radius: 24px 24px 0 0; max-height: 92vh; overflow-y: auto; }
-.modal-handle { width: 36px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 100px; margin: 12px auto 0; }
-.close-btn { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: none; color: var(--muted); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* Ads & Timer & Prompts */
-.ad-zone { margin: 16px; padding: 15px; border-radius: 14px; background: linear-gradient(135deg, rgba(30,20,60,0.5), rgba(10,30,60,0.5)); border: 1px solid rgba(255,255,255,0.08); text-align: center; }
-.ad-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.2); margin-bottom: 5px; }
-.timer-section { padding: 0 16px 8px; }
-.timer-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-.timer-track { height: 3px; background: rgba(255,255,255,0.08); border-radius: 100px; overflow: hidden; }
-.timer-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #a855f7, #3b82f6, #06b6d4); transition: width 0.1s linear; }
-.prompt-section { padding: 0 16px 16px; display: none; }
+.modal { width: 100%; max-width: 600px; background: rgba(18,18,30,0.95); border-radius: 24px 24px 0 0; max-height: 92vh; overflow-y: auto; padding-top: 10px;}
+.modal-handle { width: 36px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 100px; margin: 0 auto 16px; }
+.close-btn { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: none; color: var(--muted); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+
+/* PiqAi Brand Title inside Modal */
+.brand-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 16px;
+  background: -webkit-linear-gradient(45deg, #a855f7, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+/* Prompts */
+.prompt-section { padding: 0 16px 20px; display: none; }
 .prompt-section.show { display: block; animation: fadeIn 0.4s ease; }
-.prompt-image { width: 100%; border-radius: 14px; max-height: 240px; object-fit: cover; margin-bottom: 14px; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.prompt-image { width: 100%; border-radius: 14px; max-height: 400px; object-fit: contain; margin-bottom: 16px; background: #000; }
 .prompt-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px; font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.85); margin-bottom: 12px; }
+
+/* Buttons */
 .copy-btn { width: 100%; padding: 14px; border-radius: 14px; background: linear-gradient(135deg, #a855f7, #3b82f6); border: none; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: transform 0.1s; }
 .copy-btn.copied { background: linear-gradient(135deg, #22c55e, #10b8e9); }
+.copy-btn:active { transform: scale(0.98); }
+
 .ai-redirect-wrap { display: flex; gap: 8px; margin-top: 8px; }
 .ai-btn { flex: 1; padding: 11px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06); color: #fff; font-size: 12.5px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; }
 .ai-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
+
+.load-more-wrap { padding: 10px 16px 30px; display: flex; justify-content: center; position: relative; z-index: 10; max-width: 600px; margin: 0 auto;}
+.load-more-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 12px 30px; border-radius: 100px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.3s; display: none; }
+.load-more-btn:hover { background: rgba(255,255,255,0.2); }
+
 .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; display: none; }
 .empty.show { display: block; }
+
 .instruction-box { background: rgba(168, 85, 247, 0.06); border: 1px solid rgba(168, 85, 247, 0.15); border-radius: 12px; padding: 12px; margin-bottom: 14px; }
 .instruction-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .instruction-title { font-size: 12px; font-weight: 600; text-transform: uppercase; color: #a855f7; }
@@ -323,23 +353,20 @@ body {
 <div class="grid" id="grid"></div>
 <div class="empty" id="empty">No matches found.</div>
 
+<div class="load-more-wrap">
+  <button id="loadMoreBtn" class="load-more-btn" onclick="loadMore()">Load More Images</button>
+</div>
+
 <div class="overlay" id="overlay" onclick="handleOverlay(event)">
   <div class="modal" id="modal">
     <div class="modal-handle"></div>
     <button class="close-btn" onclick="closeModal()">✕</button>
-    <div class="ad-zone">
-      <div class="ad-label">Sponsored AD</div>
-      <div class="ad-inner"><div id="container-88888888">📢 Ad Loading...</div></div>
-    </div>
-    <div class="timer-section" id="timerSection">
-      <div class="timer-row">
-        <span class="dots">Wait...</span>
-        <span id="timerCount">5s</span>
-      </div>
-      <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
-    </div>
+    
     <div class="prompt-section" id="promptSection">
+      <div class="brand-title">PiqAi</div>
+      
       <img src="" id="modalImg" class="prompt-image" alt="">
+      
       <div class="instruction-box">
         <div class="instruction-header">
           <span class="instruction-title">💡 How to use</span>
@@ -357,8 +384,10 @@ body {
         </div>
         <div class="instruction-text" id="instructionText"></div>
       </div>
+      
       <div class="prompt-box" id="modalPrompt"></div>
       <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">📋 Copy Prompt</button>
+      
       <div class="ai-redirect-wrap">
         <button class="ai-btn" onclick="redirectToAI('gpt')">💬 ChatGPT</button>
         <button class="ai-btn" onclick="redirectToAI('gemini')">✨ Google Gemini</button>
@@ -372,6 +401,13 @@ const SPREADSHEET_ID = '1eGVpHBZC0rF-JGEPq9vh353H-BYQnUOHcaM3FNVPOzM';
 const SHEET_NAME = 'Sheet1'; 
 
 let DATA = []; 
+let activeFilter = "All";
+let currentData = null;
+let searchQuery = "";
+
+// Pagination Variables
+let currentPage = 1;
+const ITEMS_PER_PAGE = 50;
 
 const TRANSLATIONS = {
   bn: "প্রম্পটটি কপি করুন, তারপর নিচে থাকা বাটনটি ক্লিক করে চ্যাটজিপিটি বা জেমিনি এআই তে গিয়ে পেস্ট করে আপনার ইউনিক ইমেজ তৈরি করে নিন।",
@@ -379,17 +415,11 @@ const TRANSLATIONS = {
   hi: "प्रॉम्प्ट कॉपी करें, फिर नीचे दिए गए बटन पर क्लिक करके ChatGPT या Gemini AI खोलें और वहां प्रॉम्प्ट पेस्ट करें।",
   te: "ప్రాంప్ట్‌ను కాపీ చేయండి, ఆపై ChatGPT లేదా Gemini AIని తెరవడానికి క్రింది బటన్లపై క్లిక్ చేయండి. అక్కడ ప్రాంప్ట్‌ను పేస్ట్ చేయండి.",
   ta: "ப்ராம்ட்டை காப்பி செய்து, பின்னர் ChatGPT அல்லது Gemini AI ஐத் திறக்க கீழே உள்ள பட்டன்களைக் கிளிக் செய்யவும். அங்கு ப்ராம்ட்டை பேஸ்ட் செய்யவும்.",
-  mr: "प्रॉम्प्ट कॉपी करा, त्यानंतर ChatGPT किंवा Gemini AI उघडण्यासाठी खालील बटणांवरクリック करा आणि तिथे प्रॉम्प्ट पेस्ट करा.",
+  mr: "प्रॉम्प्ट कॉपी करा, त्यानंतर ChatGPT किंवा Gemini AI उघडण्यासाठी खालील बटणांवर क्लिक करा आणि तिथे प्रॉम्प्ट पेस्ट करा.",
   gu: "પ્રોમ્પ્ટ કૉપિ કરો, પછી ChatGPT અથવા Gemini AI ખોલવા માટે નીચેના બટનો પર ક્લિક કરો અને ત્યાં પેસ્ટ કરો.",
   ml: "പ്രോംപ്റ്റ് കോപ്പി ചെയ്യുക, തുടർന്ന് ChatGPT അല്ലെങ്കിൽ Gemini AI തുറക്കാൻ താഴെയുള്ള ബട്ടണുകളിൽ ക്ലിക്ക് ചെയ്യുക. അവിടെ പ്രോംപ്റ്റ് പേസ്റ്റ് ചെയ്യുക.",
-  kn: "ಪ್ರಾಂಪ್ಟ್ ಅನ್ನು ಕಾಪಿ ಮಾಡಿ, ನಂತರ ChatGPT ಅಥವಾ Gemini AI ಅನ್ನು ತೆರೆಯಲು ಕೆಳಗಿನ ಬಟನ್‌ಗಳ ಮೇಲೆ ಕ್ಲಿక్ ಮಾಡಿ. ಅಲ್ಲಿ ಪ್ರಾಂಪ್ಟ್ ಅನ್ನು ಪೇಸ್ಟ್ ಮಾಡಿ।"
+  kn: "ಪ್ರಾಂಪ್ಟ್ ಅನ್ನು ಕಾಪಿ ಮಾಡಿ, ನಂತರ ChatGPT ಅಥವಾ Gemini AI ಅನ್ನು ತೆರೆಯಲು ಕೆಳಗಿನ ಬಟನ್‌ಗಳ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ. ಅಲ್ಲಿ ಪ್ರಾಂಪ್ಟ್ ಅನ್ನು ಪೇಸ್ಟ್ ಮಾಡಿ।"
 };
-
-let activeFilter = "All";
-let currentData = null;
-let timerInterval = null;
-let searchQuery = "";
-const TIMER_SEC = 5;
 
 const FILTERS = [
   "All", "Instagram", "Facebook", "WhatsApp", "Status", "Snapchat", 
@@ -419,11 +449,8 @@ async function fetchSheetData() {
       };
     });
 
-    // --- NEW SORTING LOGIC ---
-    // 1. Sort everything descending by number
     DATA.sort((a, b) => (b.number || 0) - (a.number || 0));
     
-    // 2. Keep top 10 as is, randomise the rest
     let top10 = DATA.slice(0, 10);
     let remaining = DATA.slice(10);
     
@@ -432,9 +459,7 @@ async function fetchSheetData() {
       [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
     }
     
-    // 3. Merge them back
     DATA = top10.concat(remaining);
-    // -------------------------
 
     buildFilters();
     buildGrid();
@@ -456,7 +481,8 @@ function buildFilters() {
     btn.className = 'pill' + (f === activeFilter ? ' active' : '');
     btn.textContent = f;
     btn.onclick = function() { 
-      activeFilter = f; 
+      activeFilter = f;
+      currentPage = 1; // Reset pagination on filter
       buildFilters(); 
       buildGrid(); 
     };
@@ -466,12 +492,14 @@ function buildFilters() {
 
 function handleSearch() {
   searchQuery = document.getElementById('numSearch').value.trim();
+  currentPage = 1; // Reset pagination on search
   buildGrid();
 }
 
 function buildGrid() {
   const grid = document.getElementById('grid');
   const empty = document.getElementById('empty');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
   if(!grid || !empty) return;
   
   let filtered = DATA.filter(function(item) {
@@ -483,19 +511,21 @@ function buildGrid() {
     return matchesFilter && matchesSearch;
   });
 
-  // Sorting removed from here so it respects the randomized order created in fetchSheetData()
-
   if (filtered.length === 0) {
     grid.innerHTML = '';
     empty.classList.add('show');
+    loadMoreBtn.style.display = 'none';
     return;
   }
   
   empty.classList.remove('show');
 
+  // Pagination Logic
+  let paginated = filtered.slice(0, currentPage * ITEMS_PER_PAGE);
   let htmlStr = "";
-  for(let i=0; i<filtered.length; i++) {
-    let item = filtered[i];
+  
+  for(let i=0; i<paginated.length; i++) {
+    let item = paginated[i];
     let actualIndex = DATA.indexOf(item);
     
     htmlStr += '<div class="card" onclick="openModal('+actualIndex+')">' +
@@ -508,16 +538,28 @@ function buildGrid() {
                '</div>';
   }
   grid.innerHTML = htmlStr;
+
+  // Show or Hide "Load More" button
+  if (filtered.length > currentPage * ITEMS_PER_PAGE) {
+    loadMoreBtn.style.display = 'inline-block';
+  } else {
+    loadMoreBtn.style.display = 'none';
+  }
+}
+
+function loadMore() {
+  currentPage++;
+  buildGrid();
 }
 
 function openModal(index) {
   currentData = DATA[index];
   document.getElementById('modalImg').src = currentData.img;
   document.getElementById('modalPrompt').textContent = currentData.prompt;
-  document.getElementById('promptSection').classList.remove('show');
-  document.getElementById('timerSection').style.display = 'block';
-  document.getElementById('timerFill').style.width = '0%';
-  document.getElementById('timerCount').textContent = TIMER_SEC + 's';
+  
+  // Directly show prompt, removed timer and ads
+  document.getElementById('promptSection').classList.add('show');
+  
   document.getElementById('langSelect').value = 'bn'; 
   changeLanguage();
 
@@ -527,32 +569,9 @@ function openModal(index) {
 
   document.getElementById('overlay').classList.add('show');
   document.body.style.overflow = 'hidden';
-  startTimer();
-}
-
-function startTimer() {
-  clearInterval(timerInterval);
-  let elapsed = 0;
-  const total = TIMER_SEC * 10;
-  timerInterval = setInterval(function() {
-    elapsed++;
-    document.getElementById('timerFill').style.width = (elapsed / total * 100) + '%';
-    document.getElementById('timerCount').textContent = Math.ceil((total - elapsed) / 10) + 's';
-    if (elapsed >= total) {
-      clearInterval(timerInterval);
-      revealPrompt();
-    }
-  }, 100);
-}
-
-function revealPrompt() {
-  document.getElementById('timerSection').style.display = 'none';
-  document.getElementById('promptSection').classList.add('show');
-  if(typeof show_8888888 === 'function'){ show_8888888(); }
 }
 
 function closeModal() {
-  clearInterval(timerInterval);
   document.getElementById('overlay').classList.remove('show');
   document.body.style.overflow = '';
 }
@@ -579,7 +598,7 @@ function copyPrompt() {
       fallbackCopyPrompt(textToCopy, showSuccess);
     });
   } else {
-    fallbackCopyPrompt(textToCopy, successCallback);
+    fallbackCopyPrompt(textToCopy, showSuccess);
   }
 }
 
@@ -606,7 +625,6 @@ function fallbackCopyPrompt(text, successCallback) {
   document.body.removeChild(textArea);
 }
 
-// 💡 শুধুমাত্র এই ফাংশনটি আপডেট করা হয়েছে (লাইভ ও অটোমেটিক ট্রান্সলেশনের জন্য)
 function changeLanguage() {
   const selectedLang = document.getElementById('langSelect').value;
   const insTextBox = document.getElementById('instructionText');
@@ -614,25 +632,19 @@ function changeLanguage() {
   if (!currentData || !currentData.instructions) return;
 
   if (selectedLang === 'bn') {
-    // বাংলা সিলেক্ট করলে শিট থেকে কাস্টম বাংলা লেখা দেখাবে (না থাকলে ব্যাকআপ ইংলিশ)
     insTextBox.textContent = currentData.instructions.bn || currentData.instructions.en || TRANSLATIONS['bn'];
   } else if (selectedLang === 'en') {
-    // ইংলিশ সিলেক্ট করলে শিট থেকে কাস্টম ইংলিশ লেখা দেখাবে
     insTextBox.textContent = currentData.instructions.en || TRANSLATIONS['en'];
   } else {
-    // হিন্দি বা অন্য যেকোনো ভাষা সিলেক্ট করলে:
     if (currentData.instructions.en) {
-      // ১. প্রথমে আপনার দেওয়া কাস্টম ইংলিশ লেখাটি ডিফল্ট বা তাৎক্ষণিক হিসেবে স্ক্রিনে লোড হবে
       insTextBox.textContent = currentData.instructions.en;
 
-      // ২. এরপর ব্যাকগ্রাউন্ডে গুগল এপিআই দিয়ে লেখাটি ওই ভাষায় ট্রান্সলেট হয়ে আপডেট হবে
       const textToTranslate = currentData.instructions.en;
       const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${selectedLang}&dt=t&q=${encodeURIComponent(textToTranslate)}`;
 
       fetch(url)
         .then(res => res.json())
         .then(json => {
-          // ইউজার এর মধ্যে ভাষা পরিবর্তন করে ফেলেছে কি না তা নিশ্চিত করার সেফটি চেক
           const currentSelectedLang = document.getElementById('langSelect').value;
           if (currentSelectedLang === selectedLang) {
             let translatedText = "";
@@ -648,12 +660,8 @@ function changeLanguage() {
             }
           }
         })
-        .catch(err => {
-          console.error("Translation Error:", err);
-          // নেটওয়ার্ক স্লো বা এরর হলেও স্ক্রিনে অলরেডি আপনার কাস্টম ইংলিশ টেক্সটটি শো করাই থাকবে
-        });
+        .catch(err => console.error("Translation Error:", err));
     } else {
-      // যদি শিটে কোনো ইংলিশ ডাটাই না থাকে, তবে ব্যাকআপ হিসেবে গ্লোবাল লিস্ট দেখাবে
       insTextBox.textContent = TRANSLATIONS[selectedLang] || TRANSLATIONS['bn'];
     }
   }
