@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="monetag" content="289af2708443a567b9914b7a46d68f20">
 <title>AI Prompt Gallery PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -178,20 +179,19 @@ body {
   color: #fff;
 }
 
-/* Grid & Cards */
+/* Grid & Cards - UPDATED TO RESPONSIVE GRID LEFT TO RIGHT */
 .grid {
   position: relative;
   z-index: 10;
-  columns: 2;
-  column-gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
   padding: 6px;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .card {
-  break-inside: avoid;
-  margin-bottom: 6px;
   border-radius: 14px;
   overflow: hidden;
   position: relative;
@@ -418,11 +418,28 @@ async function fetchSheetData() {
       };
     });
 
+    // --- NEW SORTING LOGIC ---
+    // 1. Sort everything descending by number
+    DATA.sort((a, b) => (b.number || 0) - (a.number || 0));
+    
+    // 2. Keep top 10 as is, randomise the rest
+    let top10 = DATA.slice(0, 10);
+    let remaining = DATA.slice(10);
+    
+    for (let i = remaining.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
+    }
+    
+    // 3. Merge them back
+    DATA = top10.concat(remaining);
+    // -------------------------
+
     buildFilters();
     buildGrid();
   } catch (error) {
     console.error("Error fetching data from Google Sheet:", error);
-    document.getElementById('empty').textContent = "Failed to load data. Please check Sheet sharing permission.";
+    document.getElementById('empty').textContent = "Network Error, Please Refresh";
     document.getElementById('empty').classList.add('show');
   }
 }
@@ -465,11 +482,7 @@ function buildGrid() {
     return matchesFilter && matchesSearch;
   });
 
-  filtered.sort(function(a, b) {
-    let numA = a.number || 0;
-    let numB = b.number || 0;
-    return numB - numA;
-  });
+  // Sorting removed from here so it respects the randomized order created in fetchSheetData()
 
   if (filtered.length === 0) {
     grid.innerHTML = '';
