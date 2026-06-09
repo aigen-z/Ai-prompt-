@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://5gvci.com/act/files/tag.min.js?z=11119515" data-cfasync="false" async></script>
+  <script>(function(s){s.dataset.zone='11119539',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+<meta name="monetag" content="298dd310f49c89f1e029c1704e26ba69">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PiqAi</title>
@@ -51,7 +55,7 @@ body {
   opacity:0.5; pointer-events:none;
 }
 
-/* FLOATING HEADER ROW */
+/* FLOATING HEADER ROW - All items inline */
 .top-bar-wrap {
   position: sticky;
   top: 0;
@@ -88,7 +92,7 @@ body {
   cursor: text;
 }
 .search-box-wrap:focus-within {
-  width: 140px;
+  width: 130px;
   background: rgba(255,255,255,0.08);
   border-color: rgba(168,85,247,0.6);
   box-shadow: 0 0 10px rgba(168,85,247,0.2);
@@ -122,29 +126,26 @@ body {
 .telegram-btn:hover { background: #0099e6; animation-play-state: paused; transform: scale(1.1); }
 .telegram-btn svg { width: 20px; height: 20px; fill: #fff; transform: translateX(-1px); }
 
-/* 3. Install App Button */
+/* 3. Install App Button - Re-styled from your code into a beautiful matching circle icon */
 .install-btn {
-  display: none; /* Hidden by default, JS will show when PWA is ready */
+  display: none; /* বাটনটি ডিফল্টভাবে হাইড থাকবে, যখন PWA ইনস্টল করার উপযোগী হবে তখন JS দিয়ে শো হবে */
+  width: 40px;
   height: 40px;
-  padding: 0 16px;
   flex-shrink: 0;
   background: linear-gradient(135deg, #a855f7, #3b82f6);
-  border-radius: 50px;
+  border-radius: 50%;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 13px;
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
   animation: floatBounce 1.8s ease-in-out infinite;
   transition: transform 0.2s;
-  white-space: nowrap;
 }
-.install-btn:hover { animation-play-state: paused; transform: scale(1.05); }
+.install-btn:hover { animation-play-state: paused; transform: scale(1.1); }
+.install-btn svg { width: 20px; height: 20px; fill: #fff; }
 
+/* ভাসমান অ্যানিমেশন এফেক্ট */
 @keyframes floatBounce {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-7px); }
@@ -238,6 +239,26 @@ body {
   padding: 2px 8px; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
 }
 
+/* Custom Permission Overlay Dialog Style */
+.custom-prompt-overlay {
+  display: none; position: fixed; inset: 0; z-index: 10000;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center; padding: 20px;
+}
+.custom-prompt-overlay.show { display: flex; }
+.custom-prompt-box {
+  background: #12121e; border: 1px solid rgba(168,85,247,0.3);
+  border-radius: 20px; max-width: 320px; width: 100%; padding: 28px 24px;
+  text-align: center; box-shadow: 0 10px 30px rgba(168,85,247,0.2);
+  animation: fadeIn 0.3s ease;
+}
+.custom-prompt-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 24px; letter-spacing: 0.5px; }
+.custom-prompt-btn-wrap { display: flex; gap: 12px; }
+.cp-btn { flex: 1; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; border: none; transition: transform 0.1s; }
+.cp-btn:active { transform: scale(0.97); }
+.cp-btn-yes { background: linear-gradient(135deg, #a855f7, #3b82f6); color: #fff; order: 2; } /* Right Button */
+.cp-btn-no { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); order: 1; } /* Left Button */
+
 /* Modal */
 .overlay { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); align-items: flex-end; justify-content: center; }
 .overlay.show { display: flex; animation: overlayIn 0.25s ease; }
@@ -258,7 +279,33 @@ body {
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 .prompt-image { width: 100%; border-radius: 14px; max-height: 400px; object-fit: contain; margin-bottom: 16px; background: #000; }
-.prompt-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px; font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.85); margin-bottom: 12px; }
+
+/* Secure Web Component Styles for Secure Blur Prompt Box */
+.prompt-box { 
+  background: rgba(255,255,255,0.04); 
+  border: 1px solid rgba(255,255,255,0.08); 
+  border-radius: 12px; 
+  padding: 14px; 
+  font-size: 13px; 
+  line-height: 1.6; 
+  color: rgba(255,255,255,0.85); 
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.prompt-clear-text {
+  display: block;
+}
+.prompt-blurred-text {
+  display: block;
+  filter: blur(4px);
+  pointer-events: none;
+  margin-top: 2px;
+}
 
 .copy-btn { width: 100%; padding: 14px; border-radius: 14px; background: linear-gradient(135deg, #a855f7, #3b82f6); border: none; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: transform 0.1s; }
 .copy-btn.copied { background: linear-gradient(135deg, #22c55e, #10b8e9); }
@@ -292,13 +339,17 @@ body {
     <input type="number" class="search-input" id="numSearch" placeholder="No..." oninput="handleSearch()">
   </label>
   
-  <a href="https://t.me/your_channel_link" target="_blank" class="telegram-btn" title="Join Telegram">
+  <a href="https://t.me/piqaiofficial" target="_blank" class="telegram-btn" title="Join Telegram">
     <svg viewBox="0 0 24 24">
       <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.892-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
     </svg>
   </a>
 
-  <button id="installAppBtn" class="install-btn">📱 Install App</button>
+  <button id="installAppBtn" class="install-btn" title="Install App">
+    <svg viewBox="0 0 24 24">
+      <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+    </svg>
+  </button>
 
   <div class="filter-scroll" id="filterScroll"></div>
 </div>
@@ -308,6 +359,16 @@ body {
 
 <div class="load-more-wrap">
   <button id="loadMoreBtn" class="load-more-btn" onclick="loadMore()">Next</button>
+</div>
+
+<div class="custom-prompt-overlay" id="customPromptOverlay">
+  <div class="custom-prompt-box">
+    <div class="custom-prompt-title">Open?</div>
+    <div class="custom-prompt-btn-wrap">
+      <button class="cp-btn cp-btn-yes" onclick="handlePermissionResponse(true)">Yes</button>
+      <button class="cp-btn cp-btn-no" onclick="handlePermissionResponse(false)">No</button>
+    </div>
+  </div>
 </div>
 
 <div class="overlay" id="overlay" onclick="handleOverlay(event)">
@@ -338,7 +399,7 @@ body {
         <div class="instruction-text" id="instructionText"></div>
       </div>
       
-      <div class="prompt-box" id="modalPrompt"></div>
+      <div class="prompt-box" id="modalPrompt" oncontextmenu="return false;"></div>
       <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">📋 Copy Prompt</button>
       
       <div class="ai-redirect-wrap">
@@ -351,33 +412,44 @@ body {
 
 <script>
 // ==========================================
-// 1. PWA SETUP (MANIFEST & SERVICE WORKER)
+// 1. PWA SETUP (MANIFEST & NATIVE APP BROWSING HANDLERS FROM WORKER TEXT FILE)
 // ==========================================
-const manifestData = {
-  "name": "PiqAi Gallery",
-  "short_name": "PiqAi",
-  "start_url": window.location.pathname, 
-  "display": "standalone",
-  "background_color": "#0a0a12",
-  "theme_color": "#0a0a12",
-  "icons": [
-    {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2E4NTVmNyI+PHBhdGggZD0iTTEyIDJMMiAyMmgyMGwtMTAtMjB6Ii8+PC9zdmc+",
-      "sizes": "192x192",
-      "type": "image/svg+xml"
-    },
-    {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzNiODJmNiI+PHBhdGggZD0iTTEyIDJMMiAyMmgyMGwtMTAtMjB6Ii8+PC9zdmc+",
-      "sizes": "512x512",
-      "type": "image/svg+xml"
+fetch('encoded-20260608162208.txt')
+  .then(response => response.text())
+  .then(base64Data => {
+    let iconData = base64Data.trim();
+    if (!iconData.startsWith('data:image')) {
+      iconData = 'data:image/jpeg;base64,' + iconData;
     }
-  ]
-};
 
-const manifestString = JSON.stringify(manifestData);
-const encodedManifest = encodeURIComponent(manifestString);
-document.getElementById('manifest-link').href = 'data:application/manifest+json;charset=utf-8,' + encodedManifest;
+    const manifestData = {
+      "name": "PiqAi Gallery",
+      "short_name": "PiqAi",
+      "start_url": window.location.pathname, 
+      "display": "standalone",
+      "background_color": "#0a0a12",
+      "theme_color": "#0a0a12",
+      "icons": [
+        {
+          "src": iconData,
+          "sizes": "192x192",
+          "type": "image/jpeg"
+        },
+        {
+          "src": iconData,
+          "sizes": "512x512",
+          "type": "image/jpeg"
+        }
+      ]
+    };
 
+    const manifestString = JSON.stringify(manifestData);
+    const encodedManifest = encodeURIComponent(manifestString);
+    document.getElementById('manifest-link').href = 'data:application/manifest+json;charset=utf-8,' + encodedManifest;
+  })
+  .catch(err => console.error('Error Loading App Logo:', err));
+
+// Integrates your working Service Worker Blob structure
 const swCode = `
   const CACHE_NAME = 'piqai-cache-v1';
   self.addEventListener('install', (event) => {
@@ -405,13 +477,14 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// Integrated precise PWA triggers matching your requested logic
 let deferredPrompt;
 const installBtn = document.getElementById('installAppBtn');
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  installBtn.style.display = 'flex';
+  installBtn.style.display = 'flex'; /* Toggled layout dynamically using exact styling logic */
 });
 
 installBtn.addEventListener('click', async () => {
@@ -426,15 +499,21 @@ window.addEventListener('appinstalled', () => { installBtn.style.display = 'none
 
 
 // ==========================================
-// 2. GALLERY & APP LOGIC
+// 2. GALLERY & APP LOGIC WITH ATTACHED LOOP RULES
 // ==========================================
 const SPREADSHEET_ID = '1eGVpHBZC0rF-JGEPq9vh353H-BYQnUOHcaM3FNVPOzM'; 
 const SHEET_NAME = 'Sheet1'; 
+const AD_URL = 'https://omg10.com/4/11119694';
 
 let DATA = []; 
 let activeFilter = "All";
 let currentData = null;
 let searchQuery = "";
+let pendingCardIndex = null;
+let pendingAdClick = false;
+
+// Dynamic Ad Offset Assignment on Page Refresh
+let adOffset = Math.floor(Math.random() * 3);
 
 // Pagination
 let currentPage = 1;
@@ -444,10 +523,10 @@ const TRANSLATIONS = {
   bn: "প্রম্পটটি কপি করুন, তারপর নিচে থাকা বাটনটি ক্লিক করে চ্যাটজিপিটি বা জেমিনি এআই তে গিয়ে পেস্ট করে আপনার ইউনিক ইমেজ তৈরি করে নিন।",
   en: "Copy the prompt, then click on the buttons below to open ChatGPT or Gemini AI. Paste the prompt there.",
   hi: "प्रॉम्प्ट कॉपी करें, फिर नीचे दिए गए बटन पर क्लिक करके ChatGPT या Gemini AI खोलें और वहां प्रॉम्प्ट पेस्ट करें।",
-  te: "ప్రాంప్ట్‌ను కాపీ చేయండి, ఆపై ChatGPT లేదా Gemini AIని తెరవడానికి క్రింది బటన్లపై క్లిక్ చేయండి. అక్కడ ప్రాంప్ట్‌ను పేస్ట్ చేయండి.",
-  ta: "ப்ராம்ட்டை காப்பி செய்து, பின்னர் ChatGPT அல்லது Gemini AI ஐத் திறக்க கீழே உள்ள பட்டன்களைக் கிளிக் செய்யவும். அங்கு ப்ராம்ட்டை பேஸ்ட் செய்யவும்.",
-  mr: "प्रॉम्प्ट कॉपी करा, त्यानंतर ChatGPT किंवा Gemini AI उघडण्यासाठी खालील बटणांवर क्लिक करा आणि तिथे प्रॉम्प्ट पेस्ट करा.",
-  gu: "પ્રોમ્પ્ટ કૉપિ કરો, પછી ChatGPT અથવા Gemini AI ખોલવા માટે નીચેના બટનો પર ક્લિક કરો અને ત્યાં પેસ્ટ કરો.",
+  te: "ప్రాంప్ట్‌ను కాపీ చేయండి, ఆపై ChatGPT లేదా Gemini AIని తెరవడానికి క్రింది బటన్లపై ಕ್ಲಿಕ್ ചെയ്യండి. అక్కడ ప్రాంప్ట్‌ను পেสต์ చేయండి.",
+  ta: "ப்ராம்ட்டை காப்பி செய்து, பின்னர் ChatGPT அல்லது Gemini AI আইத் திறக்க கீழே உள்ள பட்டன்களைக்คลิก செய்யவும். அங்கு ப்ராம்ட்டை பேสต์ செய்யவும்.",
+  mr: "प्रॉम्प्ट कॉपी करा, त्यानंतर ChatGPT किंवा Gemini AI উघडण्यासाठी खालीল বাটণাंवर ক্লিক करा এবং तिथे प्रॉम्प्ट पेस्ट करा.",
+  gu: "પ્રોમ્પ્ટ કૉપિ કરો, પછી ChatGPT અથવા Gemini AI ખોલવા માટે નીચેના બটનો પર ક્લિક કરો અને ત્યાં পেસ્ટ કરો.",
   ml: "പ്രോംപ്റ്റ് കോപ്പി ചെയ്യുക, തുടർന്ന് ChatGPT അല്ലെങ്കിൽ Gemini AI തുറക്കാൻ താഴെയുള്ള ബട്ടണുകളിൽ ക്ലിക്ക് ചെയ്യുക. അവിടെ പ്രോംപ്റ്റ് പേസ്റ്റ് ചെയ്യുക.",
   kn: "ಪ್ರಾಂಪ್ಟ್ ಅನ್ನು ಕಾಪಿ ಮಾಡಿ, ನಂತರ ChatGPT ಅಥವಾ Gemini AI ಅನ್ನು ತೆರೆಯಲು ಕೆಳಗಿನ ಬಟನ್‌ಗಳ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ. ಅಲ್ಲಿ ಪ್ರಾಂಪ್ಟ್ ಅನ್ನು ಪೇಸ್ಟ್ ಮಾಡಿ।"
 };
@@ -494,6 +573,9 @@ async function fetchSheetData() {
 
     buildFilters();
     buildGrid();
+    
+    // Check and restore State Preservation on navigation back
+    checkSavedState();
   } catch (error) {
     console.error("Error fetching data:", error);
     document.getElementById('empty').textContent = "Network Error, Please Refresh";
@@ -558,14 +640,25 @@ function buildGrid() {
     let item = paginated[i];
     let actualIndex = DATA.indexOf(item);
     
-    htmlStr += '<div class="card" onclick="openModal('+actualIndex+')">' +
-                 '<img src="'+item.img+'" alt="'+item.title+'" loading="lazy">' +
-                 '<div class="card-top-tag">'+item.filter+'</div>' +
-                 '<div class="card-number-tag">No. '+item.number+'</div>' +
-                 '<div class="card-title-wrap">' +
-                   '<div class="card-title">'+item.title+'</div>' +
-                 '</div>' +
-               '</div>';
+    if ((i + adOffset) % 3 === 0) {
+      htmlStr += '<div class="card" onclick="interceptCardClick('+actualIndex+', true)">' +
+                   '<img src="'+item.img+'" alt="'+item.title+'" loading="lazy">' +
+                   '<div class="card-top-tag">'+item.filter+'</div>' +
+                   '<div class="card-number-tag">No. '+item.number+'</div>' +
+                   '<div class="card-title-wrap">' +
+                     '<div class="card-title">'+item.title+'</div>' +
+                   '</div>' +
+                 '</div>';
+    } else {
+      htmlStr += '<div class="card" onclick="interceptCardClick('+actualIndex+', false)">' +
+                   '<img src="'+item.img+'" alt="'+item.title+'" loading="lazy">' +
+                   '<div class="card-top-tag">'+item.filter+'</div>' +
+                   '<div class="card-number-tag">No. '+item.number+'</div>' +
+                   '<div class="card-title-wrap">' +
+                     '<div class="card-title">'+item.title+'</div>' +
+                   '</div>' +
+                 '</div>';
+    }
   }
   grid.innerHTML = htmlStr;
 
@@ -576,15 +669,81 @@ function buildGrid() {
   }
 }
 
+// Logic to intercept card clicks and evaluate if the Custom Trap Dialog should be shown
+function interceptCardClick(index, isAd) {
+  const permissionHandled = localStorage.getItem('push_permission_prompt_handled');
+  
+  if (permissionHandled === 'true') {
+    if (isAd) handleAdClick(index);
+    else openModal(index);
+  } else {
+    pendingCardIndex = index;
+    pendingAdClick = isAd;
+    document.getElementById('customPromptOverlay').classList.add('show');
+  }
+}
+
+// Handling responses from the custom dialog selection (Strict Native Monetag Injector Integration)
+function handlePermissionResponse(isYes) {
+  document.getElementById('customPromptOverlay').classList.remove('show');
+  
+  if (isYes) {
+    // 1. Save lifetime pass token immediately to localStorage
+    localStorage.setItem('push_permission_prompt_handled', 'true');
+    
+    // 2. MONETAG NATIVE TRIGGER CODE: Dynamically append and force run the main vignette push tag linked with direct user click behavior
+    (function(s){
+      s.dataset.zone='11119534';
+      s.src='https://n6wxm.com/vignette.min.js';
+    })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+
+    // 3. Request default browser notification channel validation
+    if ('Notification' in window) {
+      Notification.requestPermission();
+    }
+    
+    // 4. Grant access and view the photo data
+    if (pendingAdClick) {
+      handleAdClick(pendingCardIndex);
+    } else {
+      openModal(pendingCardIndex);
+    }
+  } else {
+    // If No is clicked, entry remains completely blocked, loop will request permission on next click
+    pendingCardIndex = null;
+    pendingAdClick = false;
+  }
+}
+
+function handleAdClick(index) {
+    sessionStorage.setItem('saved_card_index', index);
+    sessionStorage.setItem('saved_modal_open', 'true');
+    
+    window.open(AD_URL, '_blank');
+    
+    setTimeout(() => {
+        openModal(index);
+    }, 1500); 
+}
+
+function checkSavedState() {
+  const savedIndex = sessionStorage.getItem('saved_card_index');
+  const modalWasOpen = sessionStorage.getItem('saved_modal_open');
+  
+  if (savedIndex !== null && modalWasOpen === 'true' && DATA[savedIndex]) {
+    openModal(parseInt(savedIndex), true);
+  }
+}
+
 function loadMore() {
   currentPage++;
   buildGrid();
 }
 
-function openModal(index) {
+function openModal(index, isFromStateRestore = false) {
   currentData = DATA[index];
   document.getElementById('modalImg').src = currentData.img;
-  document.getElementById('modalPrompt').textContent = currentData.prompt;
+  renderSecurePrompt(currentData.prompt);
   document.getElementById('promptSection').classList.add('show');
   
   document.getElementById('langSelect').value = 'bn'; 
@@ -596,11 +755,39 @@ function openModal(index) {
 
   document.getElementById('overlay').classList.add('show');
   document.body.style.overflow = 'hidden';
+  
+  sessionStorage.setItem('saved_card_index', index);
+  sessionStorage.setItem('saved_modal_open', 'true');
+
+  if (!isFromStateRestore && (!history.state || history.state.page !== 'modal')) {
+    history.pushState({ page: 'modal' }, '');
+  }
+}
+
+function renderSecurePrompt(text) {
+  const container = document.getElementById('modalPrompt');
+  if (!container) return;
+  
+  const midPoint = Math.floor(text.length * 0.5);
+  const clearPart = text.substring(0, midPoint);
+  const blurredPart = text.substring(midPoint);
+  
+  container.innerHTML = `
+    <span class="prompt-clear-text">${clearPart}</span>
+    <span class="prompt-blurred-text">${blurredPart}</span>
+  `;
 }
 
 function closeModal() {
   document.getElementById('overlay').classList.remove('show');
   document.body.style.overflow = '';
+  
+  sessionStorage.removeItem('saved_card_index');
+  sessionStorage.removeItem('saved_modal_open');
+
+  if (history.state && history.state.page === 'modal') {
+    history.back();
+  }
 }
 
 function handleOverlay(e) {
@@ -614,10 +801,12 @@ function copyPrompt() {
     var btn = document.getElementById('copyBtn');
     btn.textContent = '✓ Copied!';
     btn.classList.add('copied');
+    
     setTimeout(function() { 
+      window.open(AD_URL, '_blank');
       btn.textContent = '📋 Copy Prompt'; 
       btn.classList.remove('copied'); 
-    }, 2000);
+    }, 1000);
   }
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -681,6 +870,16 @@ function redirectToAI(platform) {
   if (platform === 'gpt') window.open('https://chatgpt.com', '_blank');
   else if (platform === 'gemini') window.open('https://gemini.google.com', '_blank');
 }
+
+window.addEventListener('popstate', function(event) {
+  const overlay = document.getElementById('overlay');
+  if (overlay && overlay.classList.contains('show')) {
+    document.getElementById('overlay').classList.remove('show');
+    document.body.style.overflow = '';
+    sessionStorage.removeItem('saved_card_index');
+    sessionStorage.removeItem('saved_modal_open');
+  }
+});
 
 window.onload = function() {
   fetchSheetData();
